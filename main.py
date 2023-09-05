@@ -43,14 +43,12 @@ while run:
     draw_health_bar(player.health, 20, 20)
     draw_health_bar(player2.health,300, 20)
 
-
+    player.move(screen, player2)
 
     player.update_animation()
     player2.update_animation()
     player.draw(screen)
     player2.draw(screen)
-
-    player.move(screen, player2)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

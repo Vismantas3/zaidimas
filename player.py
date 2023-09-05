@@ -26,7 +26,7 @@ class character(pygame.sprite.Sprite):
         self.hurt_duration = 0
 
         #uzkrauti visus paveiksliukus
-        animation_types = ['Run', 'Jump', 'Attack', 'Hurt', 'Dead']
+        animation_types = ['Run', 'Jump', 'Attack', 'Hurt', 'Dead', 'Run+Attack', 'Idle']
         for animation in animation_types:
             temp_list = []
             #suskaiciuoja failu kieki
@@ -86,20 +86,21 @@ class character(pygame.sprite.Sprite):
             self.attack(surface, target)
 
 
-        #animacija
-        if self.alive:
-            if self.jump:
-                self.update_action(1) #suolis
-            elif target.hit:
-                target.update_action(3)
-            elif self.attacking:
-                self.update_action(2)
-            else:
-                self.update_action(0) #begimas
-
-
-
     def update_animation(self):
+        #animacija
+        if self.health <= 0:
+            self.health = 0
+            self.alive = False
+            self.update_action(4)
+        elif self.jump:
+            self.update_action(1) #suolis
+        elif self.hit:
+            self.update_action(3)
+        elif self.attacking:
+            self.update_action(2)
+        else:
+            self.update_action(0) #begimas
+
         #animacijos greitis
         animation_cooldown = 100
         self.image = self.animation_list[self.action][self.frame_index]
@@ -109,12 +110,16 @@ class character(pygame.sprite.Sprite):
             self.frame_index += 1
         #kada baigiasi animacijos kadru sarasas, pradedama is naujo
         if self.frame_index >= len(self.animation_list[self.action]):
-            self.frame_index = 0
-            if self.action == 2:
-                self.attacking = False
-            if self.action == 3:
-                self.action = 0
-                self.hit = False
+            if self.alive == False:
+                self.frame_index = len(self.animation_list[self.action]) - 1
+            else:
+                self.frame_index = 0
+                if self.action == 2:
+                    self.attacking = False
+                if self.action == 3:
+                    self.action = 0
+                    self.hit = False
+                    self.attacking = False
 
 
 
