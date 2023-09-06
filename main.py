@@ -24,13 +24,13 @@ def draw_health_bar(health, x, y):
     ratio = health / 100
     pygame.draw.rect(screen, BLACK, (x - 1, y - 1, 252, 22))
     pygame.draw.rect(screen, RED, (x, y, 250, 20))
-    pygame.draw.rect(screen, GREEN, (x, y, 250 * ratio, 20) )
+    pygame.draw.rect(screen, GREEN, (x, y, 100 * ratio, 20) )
 
 #zaidimo loop
 
 #characters
-player = character("knight", 200,294, 1, 5, 100)
-player2 = character("knight", 400,251, 1, 5, 50)
+player = character(1, False, "knight", 200,294, 1, 5, 1, 250)
+player2 = character(2, True, "black_werewolf", 400,277, 1, 5, 2, 250)
 
 run = True
 while run:
@@ -44,6 +44,7 @@ while run:
     draw_health_bar(player2.health,300, 20)
 
     player.move(screen, player2)
+    player2.move(screen, player)
 
     player.update_animation()
     player2.update_animation()
