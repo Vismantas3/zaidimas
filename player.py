@@ -53,6 +53,9 @@ class character(pygame.sprite.Sprite):
         gravity = 0.75
         self.walk = False
 
+        if not self.alive:
+            return
+
         #mygtuku paspaudimai
         if self.PC == 1: #Pirmo zaidejo nustatymai
             key = pygame.key.get_pressed()
