@@ -205,7 +205,7 @@ class character(pygame.sprite.Sprite):
             target.health -= 10
             target.hit = True
 
-        pygame.draw.rect(surface, (0, 255, 0), attacking_rect)
+        # pygame.draw.rect(surface, (0, 255, 0), attacking_rect)
 
 
 
